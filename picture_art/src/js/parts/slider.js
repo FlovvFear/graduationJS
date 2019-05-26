@@ -1,6 +1,9 @@
 const slider = () => {
+    const log = (msg) => console.log(msg);
+
+
     let slideIndex = 1,
-	    slides = document.querySelectorAll('.main-slider-item');
+	    slides = document.querySelectorAll('.main-slider-item > img');
 
     const showSlides = (n) => {
 
@@ -11,18 +14,21 @@ const slider = () => {
             slideIndex = slides.length;
         }
 
-        slides.forEach((item) => item.style.display = 'none');
-
+        slides.forEach((item) => {
+            item.style.display = 'none';
+        });
         slides[slideIndex - 1].style.display = 'block';
     };
 
-    showSlides();
+    showSlides(0);
 
+   
     const plusSlides = (n) => {
         showSlides(slideIndex += n);
     };
 
-    setInterval(plusSlides(1), 1000);
+    setInterval(() => { plusSlides(1);}, 3000);
+
 
 };
 

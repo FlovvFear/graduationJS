@@ -235,6 +235,58 @@ module.exports = calc;
 
 /***/ }),
 
+/***/ "./picture_art/src/js/parts/feedbackSlider.js":
+/*!****************************************************!*\
+  !*** ./picture_art/src/js/parts/feedbackSlider.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const feedbackSlider = () => {
+    console.log('sliderFeed');
+    let slideIndex = 1,
+        slides = document.querySelectorAll('.feedback-slider-item'),
+        prev = document.querySelector('.main-prev-btn'),
+        next = document.querySelector('.main-next-btn');
+
+	const showSlides = (n) => {
+
+		if (n > slides.length) {
+			slideIndex = 1;
+		}
+		if (n < 1) {
+			slideIndex = slides.length;
+		}
+
+		slides.forEach((item) => item.style.display = 'none');
+
+
+		slides[slideIndex - 1].style.display = 'block';
+
+	}
+
+	const plusSlides = (n) => {
+		showSlides(slideIndex += n);
+	};
+
+	prev.addEventListener('click', () => {
+		plusSlides(-1);
+	});
+
+	next.addEventListener('click', () => {
+		plusSlides(1);
+	});
+
+	
+    showSlides();   
+    
+    setInterval(() => plusSlides(1), 3000);
+};
+
+module.exports = feedbackSlider;
+
+/***/ }),
+
 /***/ "./picture_art/src/js/parts/modal.js":
 /*!*******************************************!*\
   !*** ./picture_art/src/js/parts/modal.js ***!
@@ -403,8 +455,11 @@ module.exports = sizes;
 /***/ (function(module, exports) {
 
 const slider = () => {
+    const log = (msg) => console.log(msg);
+
+
     let slideIndex = 1,
-	    slides = document.querySelectorAll('.main-slider-item');
+	    slides = document.querySelectorAll('.main-slider-item > img');
 
     const showSlides = (n) => {
 
@@ -415,18 +470,21 @@ const slider = () => {
             slideIndex = slides.length;
         }
 
-        slides.forEach((item) => item.style.display = 'none');
-
+        slides.forEach((item) => {
+            item.style.display = 'none';
+        });
         slides[slideIndex - 1].style.display = 'block';
     };
 
-    showSlides();
+    showSlides(0);
 
+   
     const plusSlides = (n) => {
         showSlides(slideIndex += n);
     };
 
-    setInterval(plusSlides(1), 1000);
+    setInterval(() => { plusSlides(1);}, 3000);
+
 
 };
 
@@ -493,7 +551,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		sizes = __webpack_require__(/*! ./parts/sizes.js */ "./picture_art/src/js/parts/sizes.js"),
 		scroll = __webpack_require__(/*! ./parts/scroll.js */ "./picture_art/src/js/parts/scroll.js"),
 		accordion = __webpack_require__(/*! ./parts/accordion.js */ "./picture_art/src/js/parts/accordion.js"),
-		burger = __webpack_require__(/*! ./parts/burger.js */ "./picture_art/src/js/parts/burger.js");
+		burger = __webpack_require__(/*! ./parts/burger.js */ "./picture_art/src/js/parts/burger.js"),
+		feedbackSlider = __webpack_require__(/*! ./parts/feedbackSlider.js */ "./picture_art/src/js/parts/feedbackSlider.js");
 
 	
 	slider();
@@ -505,6 +564,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	scroll();
 	accordion();
 	burger();
+	feedbackSlider();
 });
 
 /***/ })
