@@ -86,6 +86,68 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./picture_art/src/js/parts/accordion.js":
+/*!***********************************************!*\
+  !*** ./picture_art/src/js/parts/accordion.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const accordion = () => {
+    const log = msg => console.log(msg);
+    let accordionTabs = document.querySelectorAll('.accordion-heading'),
+        accordion = document.querySelector('.often-questions'),
+        accordionContents = document.querySelectorAll('.accordion-block'),
+        accordionSpan = accordion.querySelectorAll('span');
+
+    log(accordionTabs);
+    log(accordionContents);
+    log(accordionSpan);
+
+    const hideContent = (a) => {
+        for (let i = a; i < accordionContents.length; i++) {
+            accordionContents[i].style.display = 'none';
+            accordionTabs[i].classList.remove('ui-accordion-header-active');            
+		}
+    };
+    hideContent(0);
+
+    const showContent = (b) => {
+		if (accordionContents[b].style.display == 'none') {
+            accordionContents[b].style.display = 'block';
+            accordionTabs[b].classList.add('ui-accordion-header-active');            
+		}
+    };
+    
+
+
+    accordion.addEventListener('click', event => {
+        let target = event.target;
+        log(target);
+        if (target && target.classList.contains('accordion-heading') || target.tagName == 'SPAN') {
+            for (let i = 0; i < accordionTabs.length; i++) {
+                if (accordionContents[i].style.display == 'block' && (target == accordionTabs[i] || target == accordionSpan[i])) {
+                    hideContent(0);
+                    break;
+                } 
+                if (target == accordionTabs[i] || target == accordionSpan[i]) {
+                    hideContent(0);
+                    showContent(i);
+                    break;
+                }
+            }
+        }
+    });
+
+    
+
+    
+};
+
+module.exports = accordion;
+
+/***/ }),
+
 /***/ "./picture_art/src/js/parts/calc.js":
 /*!******************************************!*\
   !*** ./picture_art/src/js/parts/calc.js ***!
@@ -233,10 +295,18 @@ module.exports = moreStyle;
 /***/ (function(module, exports) {
 
 const scroll = () => {
-
-};
-
-module.exports = scroll;
+    let menu = document.querySelector('.header-menu');
+  
+  
+      menu.addEventListener('click', (event) => { 
+          event.preventDefault();
+          if (event.target && event.target.tagName == 'A') {
+              document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
+          }
+      });
+  };
+  
+  module.exports = scroll;
 
 /***/ }),
 
@@ -376,7 +446,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		calc = __webpack_require__(/*! ./parts/calc.js */ "./picture_art/src/js/parts/calc.js"),
 		tabs = __webpack_require__(/*! ./parts/tabs.js */ "./picture_art/src/js/parts/tabs.js"),
 		sizes = __webpack_require__(/*! ./parts/sizes.js */ "./picture_art/src/js/parts/sizes.js"),
-		scroll = __webpack_require__(/*! ./parts/scroll.js */ "./picture_art/src/js/parts/scroll.js");
+		scroll = __webpack_require__(/*! ./parts/scroll.js */ "./picture_art/src/js/parts/scroll.js"),
+		accordion = __webpack_require__(/*! ./parts/accordion.js */ "./picture_art/src/js/parts/accordion.js");
 
 	
 	slider();
@@ -386,6 +457,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	tabs();
 	sizes();
 	scroll();
+	accordion();
 });
 
 /***/ })

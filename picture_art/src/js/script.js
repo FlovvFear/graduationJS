@@ -6,7 +6,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		calc = require('./parts/calc.js'),
 		tabs = require('./parts/tabs.js'),
 		sizes = require('./parts/sizes.js'),
-		scroll = require('./parts/scroll.js');
+		scroll = require('./parts/scroll.js'),
+		accordion = require('./parts/accordion.js');
 
 	
 	slider();
@@ -16,4 +17,5 @@ window.addEventListener('DOMContentLoaded', () => {
 	tabs();
 	sizes();
 	scroll();
+	accordion();
 });
