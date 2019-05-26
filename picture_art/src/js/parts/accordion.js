@@ -5,9 +5,7 @@ const accordion = () => {
         accordionContents = document.querySelectorAll('.accordion-block'),
         accordionSpan = accordion.querySelectorAll('span');
 
-    log(accordionTabs);
-    log(accordionContents);
-    log(accordionSpan);
+
 
     const hideContent = (a) => {
         for (let i = a; i < accordionContents.length; i++) {

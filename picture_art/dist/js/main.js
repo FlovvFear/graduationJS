@@ -100,9 +100,7 @@ const accordion = () => {
         accordionContents = document.querySelectorAll('.accordion-block'),
         accordionSpan = accordion.querySelectorAll('span');
 
-    log(accordionTabs);
-    log(accordionContents);
-    log(accordionSpan);
+
 
     const hideContent = (a) => {
         for (let i = a; i < accordionContents.length; i++) {
@@ -145,6 +143,53 @@ const accordion = () => {
 };
 
 module.exports = accordion;
+
+/***/ }),
+
+/***/ "./picture_art/src/js/parts/burger.js":
+/*!********************************************!*\
+  !*** ./picture_art/src/js/parts/burger.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const burger = () => {
+    const log = (msg) => console.log(msg);
+
+    let burger = document.querySelector('.burger'),
+        burgerMenu = document.querySelector('.burger-menu'),
+        windowSize = document.documentElement.clientWidth,
+        burgerActive = false;
+
+    const showMenu = () => {
+        if (burgerActive == true) {
+            burgerMenu.style.display = 'none';
+            burgerActive = false;
+
+        } else {
+            burgerMenu.style.display = 'block';
+            burgerActive = true;
+        }
+    };
+
+    burger.addEventListener('click', () => {
+        if (windowSize < 768) {
+            showMenu();
+        }
+
+
+    window.addEventListener('resize', () => {
+        windowSize = document.documentElement.clientWidth;
+        if (burgerActive == true && windowSize > 768) {
+            showMenu();
+        }
+        log(windowSize);
+        });
+        
+    });
+};
+
+module.exports = burger;
 
 /***/ }),
 
@@ -447,7 +492,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		tabs = __webpack_require__(/*! ./parts/tabs.js */ "./picture_art/src/js/parts/tabs.js"),
 		sizes = __webpack_require__(/*! ./parts/sizes.js */ "./picture_art/src/js/parts/sizes.js"),
 		scroll = __webpack_require__(/*! ./parts/scroll.js */ "./picture_art/src/js/parts/scroll.js"),
-		accordion = __webpack_require__(/*! ./parts/accordion.js */ "./picture_art/src/js/parts/accordion.js");
+		accordion = __webpack_require__(/*! ./parts/accordion.js */ "./picture_art/src/js/parts/accordion.js"),
+		burger = __webpack_require__(/*! ./parts/burger.js */ "./picture_art/src/js/parts/burger.js");
 
 	
 	slider();
@@ -458,6 +504,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	sizes();
 	scroll();
 	accordion();
+	burger();
 });
 
 /***/ })
