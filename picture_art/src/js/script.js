@@ -9,7 +9,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		scroll = require('./parts/scroll.js'),
 		accordion = require('./parts/accordion.js'),
 		burger = require('./parts/burger.js'),
-		feedbackSlider = require('./parts/feedbackSlider.js');
+		feedbackSlider = require('./parts/feedbackSlider.js'),
+		forms = require('./parts/forms.js');
 
 	
 	slider();
@@ -22,4 +23,5 @@ window.addEventListener('DOMContentLoaded', () => {
 	accordion();
 	burger();
 	feedbackSlider();
+	forms();
 });

@@ -235,26 +235,26 @@
 							<div>Файл не выбран</div>
 							<input type=file name=upload>
 						</div>
-						<select id=size>
+						<select id=size name=size>
 							<option >Выберите размер картины</option>
 							<option value="500">40x50</option>
 							<option value="1000">50x70</option>
 							<option value="1500">70x70</option>
 							<option value="2000">70x100</option>
 						</select>
-						<select id=material>
+						<select id=material name=material>
 							<option >Выберите материал картины</option>
 							<option value="1" title="Изящный, позволяет легко создавать текстуру, подходит для декоративных картин маслом.">Холст из волокна</option>
 							<option value="1.5" title="Достаточно грубый и создает ощущение реальности, подходит для классических пейзажей, натюрмортов и портретов.">Льняной холст</option>
 							<option value="2" title="Изящный, подходит для всех типов реалистичных портретов.">Холст из натурального хлопка</option>
 						</select>
-						<select id=options>
+						<select id=options name=options>
 							<option >Дополнительные услуги</option>
 							<option value="1000">Покрытие арт-гелем</option>
 							<option value="2000">Экспресс-изготовление</option>
 							<option value="3000">Доставка готовых работ </option>
 						</select>
-						<input type="text" class="promocode" placeholder="Введите ваш промокод">
+						<input type="text" class="promocode" name="promocode" placeholder="Введите ваш промокод">
 						<div class=calc-price>Для расчета нужно выбрать размер картины и материал картины</div>
 						<button class="button button-order">Быстрый заказ</button>
 					</form>
@@ -596,8 +596,8 @@
 				<form action=mailer/smart.php method=POST>
 					<div class=input-wrapper>
 						<input type=text name=name placeholder="Ваше имя" required>
-						<input type=text name=phone placeholder="Ваш телефон" required>
-						<input type=text name=email placeholder="Ваш E-mail">
+						<input type=tel name=phone placeholder="Ваш телефон" required>
+						<input type=email name=email placeholder="Ваш E-mail">
 						<input class=input-text name=message type=text placeholder="Задайте ваш вопрос здесь" required>
 					</div>
 					<button class="button button-order" onclick="yaCounter46630539.reachGoal('btn-consultation'); return true;">Получить консультацию</button>
@@ -662,9 +662,9 @@
 				<button class=popup-close>&times;</button>
 				<h4>Остались вопросы? Закажите обратный звонок</h4>
 				<div class=main-form>
-					<form class=form action=mailer/smart.php method=POST>
+					<form class='form modal-form' action=mailer/smart.php method=POST>
 						<input type=text name=name placeholder="Ваше имя" required>
-						<input type=text name=phone placeholder="Ваш телефон" required>
+						<input type=tel name=phone placeholder="Ваш телефон" required>
 						<button class="button button-order" onclick="yaCounter46630539.reachGoal('btn-consultation'); return true;">Получить консультацию</button>
 					</form>
 				</div>
@@ -685,7 +685,7 @@
 		<div class=popup-dialog>
 			<div class=popup-content>
 				<button class=popup-close>&times;</button>
-				<form action= method=POST enctype=multipart/form-data>
+				<form class="modal-form" action= method=POST enctype=multipart/form-data>
 					<h4>Заказать дизайн портрета</h4>
 					<div class=file_uploa>
 						<button type=button>Загрузить фотографию</button>
@@ -695,8 +695,8 @@
 					<div class=main-form>
 						<div class=form>
 							<input type=text name=name placeholder="Ваше имя" required>
-							<input type=text name=phone placeholder="Ваш телефон" required>
-							<input type=text name=email placeholder="Ваш e-mail">
+							<input type=tel name=phone placeholder="Ваш телефон" required>
+							<input type=email name=email placeholder="Ваш e-mail">
 							<textarea name=message placeholder=Комментарий rows=2></textarea>
 							<button class="button button-order">Отправить дизайнеру</button>
 						</div>
@@ -707,6 +707,7 @@
 	</div>
 
 	<link rel=stylesheet href=css/bootstrap.css>
+	<link rel="stylesheet" href="css/animate.css">
 	<link rel=stylesheet href=css/main.css>
 	<script src="js/main.js"></script>
 </body>

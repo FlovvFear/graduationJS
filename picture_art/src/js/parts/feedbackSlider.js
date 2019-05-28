@@ -1,5 +1,4 @@
 const feedbackSlider = () => {
-    console.log('sliderFeed');
     let slideIndex = 1,
         slides = document.querySelectorAll('.feedback-slider-item'),
         prev = document.querySelector('.main-prev-btn'),
@@ -14,7 +13,10 @@ const feedbackSlider = () => {
 			slideIndex = slides.length;
 		}
 
-		slides.forEach((item) => item.style.display = 'none');
+		slides.forEach((item) => {
+			item.style.display = 'none';
+			item.classList.add('animated');
+		});
 
 
 		slides[slideIndex - 1].style.display = 'block';
@@ -26,17 +28,32 @@ const feedbackSlider = () => {
 	};
 
 	prev.addEventListener('click', () => {
+		// console.log(slideIndex);
 		plusSlides(-1);
+
+		if (slides[slideIndex-1].classList.contains('fadeInLeft')) {
+			slides[slideIndex-1].classList.remove('fadeInLeft');
+		}
+		slides[slideIndex-1].classList.add('fadeInRight');
+
 	});
 
 	next.addEventListener('click', () => {
+		console.log(slideIndex);
 		plusSlides(1);
+
+
+		if (slides[slideIndex-1].classList.contains('fadeInRight')) {
+			slides[slideIndex-1].classList.remove('fadeInRight');
+		}
+		slides[slideIndex-1].classList.add('fadeInLeft');
+
 	});
 
 	
     showSlides();   
     
-    setInterval(() => plusSlides(1), 3000);
+    // setInterval(() => plusSlides(1), 3000);
 };
 
 module.exports = feedbackSlider;

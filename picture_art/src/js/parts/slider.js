@@ -2,8 +2,10 @@ const slider = () => {
     const log = (msg) => console.log(msg);
 
 
+
+
     let slideIndex = 1,
-	    slides = document.querySelectorAll('.main-slider-item > img');
+	    slides = document.querySelectorAll('.main-slider-item');
 
     const showSlides = (n) => {
 
@@ -16,6 +18,7 @@ const slider = () => {
 
         slides.forEach((item) => {
             item.style.display = 'none';
+            item.classList.add('animated','fadeInDown');
         });
         slides[slideIndex - 1].style.display = 'block';
     };

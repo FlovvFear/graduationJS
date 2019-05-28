@@ -26,7 +26,7 @@ const modal = () => {
         }
         if(target.classList.contains('popup-close') || target.classList.contains('popup-gift')) {
             bindModal(gift, 'none', '', false);
-            giftBtn.style.display = 'inline';
+
         }
     });
 

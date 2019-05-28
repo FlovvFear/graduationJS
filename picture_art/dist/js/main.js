@@ -243,7 +243,6 @@ module.exports = calc;
 /***/ (function(module, exports) {
 
 const feedbackSlider = () => {
-    console.log('sliderFeed');
     let slideIndex = 1,
         slides = document.querySelectorAll('.feedback-slider-item'),
         prev = document.querySelector('.main-prev-btn'),
@@ -258,7 +257,10 @@ const feedbackSlider = () => {
 			slideIndex = slides.length;
 		}
 
-		slides.forEach((item) => item.style.display = 'none');
+		slides.forEach((item) => {
+			item.style.display = 'none';
+			item.classList.add('animated');
+		});
 
 
 		slides[slideIndex - 1].style.display = 'block';
@@ -270,20 +272,112 @@ const feedbackSlider = () => {
 	};
 
 	prev.addEventListener('click', () => {
+		// console.log(slideIndex);
 		plusSlides(-1);
+
+		if (slides[slideIndex-1].classList.contains('fadeInLeft')) {
+			slides[slideIndex-1].classList.remove('fadeInLeft');
+		}
+		slides[slideIndex-1].classList.add('fadeInRight');
+
 	});
 
 	next.addEventListener('click', () => {
+		console.log(slideIndex);
 		plusSlides(1);
+
+
+		if (slides[slideIndex-1].classList.contains('fadeInRight')) {
+			slides[slideIndex-1].classList.remove('fadeInRight');
+		}
+		slides[slideIndex-1].classList.add('fadeInLeft');
+
 	});
 
 	
     showSlides();   
     
-    setInterval(() => plusSlides(1), 3000);
+    // setInterval(() => plusSlides(1), 3000);
 };
 
 module.exports = feedbackSlider;
+
+/***/ }),
+
+/***/ "./picture_art/src/js/parts/forms.js":
+/*!*******************************************!*\
+  !*** ./picture_art/src/js/parts/forms.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const forms = () => {
+
+    document.body.addEventListener('input', (event) => {
+		let target = event.target;
+		if (target.getAttribute('type') === 'tel') target.value = target.value.replace(/[^0-9+]/, '');
+	});
+
+	let message = {
+		loading: "Загрузка...",
+		success: "Спасибо! Скоро мы с вами свяжемся!",
+		failure: "Что-то пошло не так"
+	};
+
+	let statusMessage = document.createElement('div');
+
+	statusMessage.classList.add('status');
+
+	let formSend = (formName) => {
+		formName.appendChild(statusMessage);
+		let input = formName.querySelectorAll('input');
+		let request = new XMLHttpRequest();
+		request.open('POST', 'server.php');
+		request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+		let formData = new FormData(formName);
+		
+		let obj = {};
+		formData.forEach((value, key) => {
+			obj[key] = value;
+		});
+		let json = JSON.stringify(obj);
+
+		request.send(json);
+
+		request.addEventListener('readystatechange', () => {
+			if (request.readyState < 4) {
+				statusMessage.innerHTML = message.loading;
+			} else if(request.readyState === 4 && request.status == 200) {
+                if (formName.classList.contains('modal-form')) {
+                    formName.innerHTML = message.success;
+                } else {
+                    statusMessage.innerHTML = message.success;
+
+                }
+			} else {
+                if (formName.classList.contains('modal-form')) {
+                    formName.innerHTML = message.failure;
+                } else {
+                    statusMessage.innerHTML = message.failure;
+                }
+			}
+		});
+
+		for (let i = 0; i < input.length; i++) {
+			input[i].value = '';
+		}
+	};
+
+	document.body.addEventListener('submit', (event) => {
+		event.preventDefault();
+		formSend(event.target);
+    });
+    let someForms = document.querySelectorAll('.form');
+	console.log(someForms);
+};
+
+module.exports = forms;
 
 /***/ }),
 
@@ -322,7 +416,7 @@ const modal = () => {
         }
         if(target.classList.contains('popup-close') || target.classList.contains('popup-gift')) {
             bindModal(gift, 'none', '', false);
-            giftBtn.style.display = 'inline';
+
         }
     });
 
@@ -458,8 +552,10 @@ const slider = () => {
     const log = (msg) => console.log(msg);
 
 
+
+
     let slideIndex = 1,
-	    slides = document.querySelectorAll('.main-slider-item > img');
+	    slides = document.querySelectorAll('.main-slider-item');
 
     const showSlides = (n) => {
 
@@ -472,6 +568,7 @@ const slider = () => {
 
         slides.forEach((item) => {
             item.style.display = 'none';
+            item.classList.add('animated','fadeInDown');
         });
         slides[slideIndex - 1].style.display = 'block';
     };
@@ -552,7 +649,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		scroll = __webpack_require__(/*! ./parts/scroll.js */ "./picture_art/src/js/parts/scroll.js"),
 		accordion = __webpack_require__(/*! ./parts/accordion.js */ "./picture_art/src/js/parts/accordion.js"),
 		burger = __webpack_require__(/*! ./parts/burger.js */ "./picture_art/src/js/parts/burger.js"),
-		feedbackSlider = __webpack_require__(/*! ./parts/feedbackSlider.js */ "./picture_art/src/js/parts/feedbackSlider.js");
+		feedbackSlider = __webpack_require__(/*! ./parts/feedbackSlider.js */ "./picture_art/src/js/parts/feedbackSlider.js"),
+		forms = __webpack_require__(/*! ./parts/forms.js */ "./picture_art/src/js/parts/forms.js");
 
 	
 	slider();
@@ -565,6 +663,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	accordion();
 	burger();
 	feedbackSlider();
+	forms();
 });
 
 /***/ })
