@@ -53,7 +53,7 @@ const feedbackSlider = () => {
 	
     showSlides();   
     
-    // setInterval(() => plusSlides(1), 3000);
+    setInterval(() => plusSlides(1), 3000);
 };
 
 module.exports = feedbackSlider;
