@@ -41,7 +41,7 @@ const modal = () => {
     // Открытие модалки при прокрутки до конца страницы
     let activeBtn = false;
 
-    document.addEventListener('click', (e) =>{
+    document.body.addEventListener('click', (e) =>{
         if (e.target.tagName == 'BUTTON') activeBtn = true;
     });
 

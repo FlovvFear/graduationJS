@@ -420,7 +420,8 @@ const forms = () => {
 
 	let formSend = (formName) => {
 		formName.appendChild(statusMessage);
-		let input = formName.querySelectorAll('input');
+		let input = formName.querySelectorAll('input'),
+			content = formName.querySelector('.form-content');
 		let request = new XMLHttpRequest();
 		request.open('POST', 'server.php');
 		request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
@@ -440,14 +441,24 @@ const forms = () => {
 				statusMessage.innerHTML = message.loading;
 			} else if(request.readyState === 4 && request.status == 200) {
                 if (formName.classList.contains('modal-form')) {
-                    formName.innerHTML = message.success;
+					content.style.display = 'none';
+					statusMessage.innerHTML = message.success;	
+					setTimeout(() =>{
+						formName.removeChild(statusMessage);
+						content.style.display = 'block';
+					}, 3000);			
                 } else {
                     statusMessage.innerHTML = message.success;
 
                 }
 			} else {
                 if (formName.classList.contains('modal-form')) {
-                    formName.innerHTML = message.failure;
+					content.style.display = 'none';
+					statusMessage.innerHTML = message.failure;
+					setTimeout(() =>{
+						formName.removeChild(statusMessage);
+						content.style.display = 'block';
+					}, 3000);
                 } else {
                     statusMessage.innerHTML = message.failure;
                 }
@@ -520,7 +531,7 @@ const modal = () => {
     // Открытие модалки при прокрутки до конца страницы
     let activeBtn = false;
 
-    document.addEventListener('click', (e) =>{
+    document.body.addEventListener('click', (e) =>{
         if (e.target.tagName == 'BUTTON') activeBtn = true;
     });
 

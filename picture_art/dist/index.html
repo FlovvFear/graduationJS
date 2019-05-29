@@ -663,9 +663,11 @@
 				<h4>Остались вопросы? Закажите обратный звонок</h4>
 				<div class=main-form>
 					<form class='form modal-form' action=mailer/smart.php method=POST>
-						<input type=text name=name placeholder="Ваше имя" required>
-						<input type=tel name=phone placeholder="Ваш телефон" required>
-						<button class="button button-order" onclick="yaCounter46630539.reachGoal('btn-consultation'); return true;">Получить консультацию</button>
+						<div class="form-content">
+							<input type=text name=name placeholder="Ваше имя" required>
+							<input type=tel name=phone placeholder="Ваш телефон" required>
+							<button class="button button-order" onclick="yaCounter46630539.reachGoal('btn-consultation'); return true;">Получить консультацию</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -686,19 +688,21 @@
 			<div class=popup-content>
 				<button class=popup-close>&times;</button>
 				<form class="modal-form" action= method=POST enctype=multipart/form-data>
-					<h4>Заказать дизайн портрета</h4>
-					<div class=file_uploa>
-						<button type=button>Загрузить фотографию</button>
-						<div>Файл не выбран</div>
-						<input type=file name=upload>
-					</div>
-					<div class=main-form>
-						<div class=form>
-							<input type=text name=name placeholder="Ваше имя" required>
-							<input type=tel name=phone placeholder="Ваш телефон" required>
-							<input type=email name=email placeholder="Ваш e-mail">
-							<textarea name=message placeholder=Комментарий rows=2></textarea>
-							<button class="button button-order">Отправить дизайнеру</button>
+					<div class="form-content">
+						<h4>Заказать дизайн портрета</h4>
+						<div class=file_uploa>
+							<button type=button>Загрузить фотографию</button>
+							<div>Файл не выбран</div>
+							<input type=file name=upload>
+						</div>
+						<div class=main-form>
+							<div class=form>
+								<input type=text name=name placeholder="Ваше имя" required>
+								<input type=tel name=phone placeholder="Ваш телефон" required>
+								<input type=email name=email placeholder="Ваш e-mail">
+								<textarea name=message placeholder=Комментарий rows=2></textarea>
+								<button class="button button-order">Отправить дизайнеру</button>
+							</div>
 						</div>
 					</div>
 				</form>
