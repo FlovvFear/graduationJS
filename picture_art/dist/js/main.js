@@ -401,6 +401,12 @@ const forms = () => {
 		let target = event.target;
 		if (target.getAttribute('type') === 'tel') mask(target);
 	});
+    document.body.addEventListener('input', (event) => {
+		let target = event.target;
+		if (target.getAttribute('name') === 'name' || target.getAttribute('name') === 'message') {
+			target.value = target.value.replace(/[a-zA-Z]/, '');
+		}
+	});
 
 	let message = {
 		loading: "Загрузка...",
