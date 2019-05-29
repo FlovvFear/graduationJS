@@ -28,20 +28,20 @@ const feedbackSlider = () => {
 	};
 
 	const animRight = () => {
-		if (slides[slideIndex-1].classList.contains('fadeInRight')) {
-			slides[slideIndex-1].classList.remove('fadeInRight');
+		if (slides[slideIndex-1].classList.contains('bounceInRight')) {
+			slides[slideIndex-1].classList.remove('bounceInRight');
 		}
-		slides[slideIndex-1].classList.add('fadeInLeft');
+		slides[slideIndex-1].classList.add('bounceInLeft');
 	};
 
 	prev.addEventListener('click', () => {
 		// console.log(slideIndex);
 		plusSlides(-1);
 
-		if (slides[slideIndex-1].classList.contains('fadeInLeft')) {
-			slides[slideIndex-1].classList.remove('fadeInLeft');
+		if (slides[slideIndex-1].classList.contains('bounceInLeft')) {
+			slides[slideIndex-1].classList.remove('bounceInLeft');
 		}
-		slides[slideIndex-1].classList.add('fadeInRight');
+		slides[slideIndex-1].classList.add('bounceInRight');
 
 	});
 
