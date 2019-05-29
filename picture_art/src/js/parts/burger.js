@@ -18,7 +18,7 @@ const burger = () => {
     };
 
     burger.addEventListener('click', () => {
-        if (windowSize < 768) {
+        if (windowSize < 992) {
             showMenu();
         }
 

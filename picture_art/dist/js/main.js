@@ -104,18 +104,76 @@ const accordion = () => {
 
     const hideContent = (a) => {
         for (let i = a; i < accordionContents.length; i++) {
-            accordionContents[i].style.display = 'none';
-            accordionTabs[i].classList.remove('ui-accordion-header-active');            
+            let h = 0,
+                pt = 0,
+                pb = 0,
+                mt = 0;
+
+            accordionContents[i].style.overflow = 'hidden';
+
+            const slideDown = setInterval(() =>{
+                if (accordionContents[i].clientHeight - h > 0) {
+                    h += 2;
+                    accordionContents[i].style.height = Math.round(accordionContents[i].clientHeight - h) + 'px';
+                } 
+                else if (pt < 3) {
+                    pt += 0.1;
+                    accordionContents[i].style.padding = (3 - pt).toFixed + 'rem';
+                } else if (pb < 3) {
+                    pb += 0.1;
+                    accordionContents[i].style.paddingBottom = (3 - pb).toFixed + 'rem'; 
+                } else if (mt < 6) {
+                    mt += 0.2;
+                    accordionContents[i].style.marginTop = (6 - mt).toFixed + 'rem'; 
+                }
+
+            }, 3);
+            accordionTabs[i].classList.remove('ui-accordion-header-active');  
+
+
+
+
+
+          
 		}
     };
     hideContent(0);
 
     const showContent = (b) => {
-		if (accordionContents[b].style.display == 'none') {
-            accordionContents[b].style.display = 'block';
+        let h = 0,
+            pt = 0,
+            pb = 0,
+            mt = 0;
+
+        const slideUp = setInterval(() =>{
+            if (accordionContents[b].clientHeight > h) {
+                h += 2;
+                accordionContents[b].style.height = h + 'px';
+            } 
+            else if (pt < 3) {
+                pt += 0.1;
+                accordionContents[b].style.padding = pt + 'rem';
+                console.log(pt);
+            } else if (pb < 3) {
+                pb += 0.1;
+                accordionContents[b].style.paddingBottom = pb + 'rem'; 
+                console.log(pb);
+            } else if (mt < 6) {
+                mt += 0.2;
+                accordionContents[b].style.marginTop = mt + 'rem'; 
+                console.log(mt);
+            }
+        }, 3);
+
+		if (accordionContents[b].style.overflow == 'hidden') {
+            accordionContents[b].style.overflow = '';
             accordionTabs[b].classList.add('ui-accordion-header-active');            
 		}
     };
+
+    showContent(0);
+
+    
     
 
 
@@ -124,7 +182,7 @@ const accordion = () => {
         log(target);
         if (target && target.classList.contains('accordion-heading') || target.tagName == 'SPAN') {
             for (let i = 0; i < accordionTabs.length; i++) {
-                if (accordionContents[i].style.display == 'block' && (target == accordionTabs[i] || target == accordionSpan[i])) {
+                if (accordionContents[i].style.overflow == '' && (target == accordionTabs[i] || target == accordionSpan[i])) {
                     hideContent(0);
                     break;
                 } 
@@ -173,7 +231,7 @@ const burger = () => {
     };
 
     burger.addEventListener('click', () => {
-        if (windowSize < 768) {
+        if (windowSize < 992) {
             showMenu();
         }
 
@@ -271,6 +329,13 @@ const feedbackSlider = () => {
 		showSlides(slideIndex += n);
 	};
 
+	const animRight = () => {
+		if (slides[slideIndex-1].classList.contains('fadeInRight')) {
+			slides[slideIndex-1].classList.remove('fadeInRight');
+		}
+		slides[slideIndex-1].classList.add('fadeInLeft');
+	};
+
 	prev.addEventListener('click', () => {
 		// console.log(slideIndex);
 		plusSlides(-1);
@@ -285,19 +350,16 @@ const feedbackSlider = () => {
 	next.addEventListener('click', () => {
 		console.log(slideIndex);
 		plusSlides(1);
-
-
-		if (slides[slideIndex-1].classList.contains('fadeInRight')) {
-			slides[slideIndex-1].classList.remove('fadeInRight');
-		}
-		slides[slideIndex-1].classList.add('fadeInLeft');
-
+		animRight();
 	});
 
 	
     showSlides();   
     
-    setInterval(() => plusSlides(1), 3000);
+	setInterval(() => {
+		plusSlides(1);
+		animRight();
+	}, 6000);
 };
 
 module.exports = feedbackSlider;
@@ -313,9 +375,30 @@ module.exports = feedbackSlider;
 
 const forms = () => {
 
+	let mask = (phone) => {
+        let matrix = "+7 (___) ___ ____",
+            i = 0,
+            deletedMatrix = matrix.replace(/\D/g, ""),
+            val = phone.value.replace(/\D/g, "");
+        // Пишем наш шаблон, удаляем из него все НЕ цифры, i присваиваем 0, 
+        // удаляем все НЕ цифры из шаблона и из value
+        
+        if (deletedMatrix.length >= val.length) {
+            val = deletedMatrix;
+        }
+        // Если длина прочищенного шаблона больше либо = длине val
+        // то они чищенный шаблон равен чищенному value
+        phone.value = matrix.replace(/./g, function (a) {
+            return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+        });
+        if (event.type == "blur") {
+            if (phone.value.length == 2) {phone.value = ""};
+        } 
+    };
+
     document.body.addEventListener('input', (event) => {
 		let target = event.target;
-		if (target.getAttribute('type') === 'tel') target.value = target.value.replace(/[^0-9+]/, '');
+		if (target.getAttribute('type') === 'tel') mask(target);
 	});
 
 	let message = {
@@ -374,7 +457,6 @@ const forms = () => {
 		formSend(event.target);
     });
     let someForms = document.querySelectorAll('.form');
-	console.log(someForms);
 };
 
 module.exports = forms;
@@ -422,8 +504,7 @@ const modal = () => {
 
     setTimeout(() =>{
         if (activeModal == false) {
-            bindModal(gift,'flex', 'hidden', true);
-            giftBtn.style.display = 'none';
+            bindModal(consultation,'flex', 'hidden', true);
         } else {
             console.log('не судьба');
         }
@@ -520,7 +601,8 @@ const sizes = () => {
 					
 	sizesWrap.addEventListener('mouseover', (e) => {
 		let target = e.target;
-		if (target && target.tagName == 'IMG') {
+		console.log(target);
+		if (target && target.closest('.sizes-block')) {
 			bindPicture(target, 'none');
 			let targetClass = target.getAttribute('class');
 			target.setAttribute('src', `img/${targetClass}-1.png`);
@@ -529,7 +611,7 @@ const sizes = () => {
 
 	sizesWrap.addEventListener('mouseout', (e) => {
 		let target = e.target;
-		if (target && target.tagName == 'IMG') {
+		if (target && target.closest('.sizes-block')) {
 			bindPicture(target, 'block');
 			let targetClass = target.getAttribute('class');
 			target.setAttribute('src', `img/${targetClass}.png`);
@@ -549,11 +631,6 @@ module.exports = sizes;
 /***/ (function(module, exports) {
 
 const slider = () => {
-    const log = (msg) => console.log(msg);
-
-
-
-
     let slideIndex = 1,
 	    slides = document.querySelectorAll('.main-slider-item');
 

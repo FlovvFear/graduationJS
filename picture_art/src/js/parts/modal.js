@@ -32,8 +32,7 @@ const modal = () => {
 
     setTimeout(() =>{
         if (activeModal == false) {
-            bindModal(gift,'flex', 'hidden', true);
-            giftBtn.style.display = 'none';
+            bindModal(consultation,'flex', 'hidden', true);
         } else {
             console.log('не судьба');
         }

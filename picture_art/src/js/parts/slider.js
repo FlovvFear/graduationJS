@@ -1,9 +1,4 @@
 const slider = () => {
-    const log = (msg) => console.log(msg);
-
-
-
-
     let slideIndex = 1,
 	    slides = document.querySelectorAll('.main-slider-item');
 

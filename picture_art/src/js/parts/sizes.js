@@ -10,7 +10,8 @@ const sizes = () => {
 					
 	sizesWrap.addEventListener('mouseover', (e) => {
 		let target = e.target;
-		if (target && target.tagName == 'IMG') {
+		console.log(target);
+		if (target && target.closest('.sizes-block')) {
 			bindPicture(target, 'none');
 			let targetClass = target.getAttribute('class');
 			target.setAttribute('src', `img/${targetClass}-1.png`);
@@ -19,7 +20,7 @@ const sizes = () => {
 
 	sizesWrap.addEventListener('mouseout', (e) => {
 		let target = e.target;
-		if (target && target.tagName == 'IMG') {
+		if (target && target.closest('.sizes-block')) {
 			bindPicture(target, 'block');
 			let targetClass = target.getAttribute('class');
 			target.setAttribute('src', `img/${targetClass}.png`);

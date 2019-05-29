@@ -9,18 +9,76 @@ const accordion = () => {
 
     const hideContent = (a) => {
         for (let i = a; i < accordionContents.length; i++) {
-            accordionContents[i].style.display = 'none';
-            accordionTabs[i].classList.remove('ui-accordion-header-active');            
+            let h = 0,
+                pt = 0,
+                pb = 0,
+                mt = 0;
+
+            accordionContents[i].style.overflow = 'hidden';
+
+            const slideDown = setInterval(() =>{
+                if (accordionContents[i].clientHeight - h > 0) {
+                    h += 2;
+                    accordionContents[i].style.height = Math.round(accordionContents[i].clientHeight - h) + 'px';
+                } 
+                else if (pt < 3) {
+                    pt += 0.1;
+                    accordionContents[i].style.padding = (3 - pt).toFixed + 'rem';
+                } else if (pb < 3) {
+                    pb += 0.1;
+                    accordionContents[i].style.paddingBottom = (3 - pb).toFixed + 'rem'; 
+                } else if (mt < 6) {
+                    mt += 0.2;
+                    accordionContents[i].style.marginTop = (6 - mt).toFixed + 'rem'; 
+                }
+
+            }, 3);
+            accordionTabs[i].classList.remove('ui-accordion-header-active');  
+
+
+
+
+
+          
 		}
     };
     hideContent(0);
 
     const showContent = (b) => {
-		if (accordionContents[b].style.display == 'none') {
-            accordionContents[b].style.display = 'block';
+        let h = 0,
+            pt = 0,
+            pb = 0,
+            mt = 0;
+
+        const slideUp = setInterval(() =>{
+            if (accordionContents[b].clientHeight > h) {
+                h += 2;
+                accordionContents[b].style.height = h + 'px';
+            } 
+            else if (pt < 3) {
+                pt += 0.1;
+                accordionContents[b].style.padding = pt + 'rem';
+                console.log(pt);
+            } else if (pb < 3) {
+                pb += 0.1;
+                accordionContents[b].style.paddingBottom = pb + 'rem'; 
+                console.log(pb);
+            } else if (mt < 6) {
+                mt += 0.2;
+                accordionContents[b].style.marginTop = mt + 'rem'; 
+                console.log(mt);
+            }
+        }, 3);
+
+		if (accordionContents[b].style.overflow == 'hidden') {
+            accordionContents[b].style.overflow = '';
             accordionTabs[b].classList.add('ui-accordion-header-active');            
 		}
     };
+
+    showContent(0);
+
+    
     
 
 
@@ -29,7 +87,7 @@ const accordion = () => {
         log(target);
         if (target && target.classList.contains('accordion-heading') || target.tagName == 'SPAN') {
             for (let i = 0; i < accordionTabs.length; i++) {
-                if (accordionContents[i].style.display == 'block' && (target == accordionTabs[i] || target == accordionSpan[i])) {
+                if (accordionContents[i].style.overflow == '' && (target == accordionTabs[i] || target == accordionSpan[i])) {
                     hideContent(0);
                     break;
                 } 

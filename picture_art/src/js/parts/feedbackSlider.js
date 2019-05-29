@@ -27,6 +27,13 @@ const feedbackSlider = () => {
 		showSlides(slideIndex += n);
 	};
 
+	const animRight = () => {
+		if (slides[slideIndex-1].classList.contains('fadeInRight')) {
+			slides[slideIndex-1].classList.remove('fadeInRight');
+		}
+		slides[slideIndex-1].classList.add('fadeInLeft');
+	};
+
 	prev.addEventListener('click', () => {
 		// console.log(slideIndex);
 		plusSlides(-1);
@@ -41,19 +48,16 @@ const feedbackSlider = () => {
 	next.addEventListener('click', () => {
 		console.log(slideIndex);
 		plusSlides(1);
-
-
-		if (slides[slideIndex-1].classList.contains('fadeInRight')) {
-			slides[slideIndex-1].classList.remove('fadeInRight');
-		}
-		slides[slideIndex-1].classList.add('fadeInLeft');
-
+		animRight();
 	});
 
 	
     showSlides();   
     
-    setInterval(() => plusSlides(1), 3000);
+	setInterval(() => {
+		plusSlides(1);
+		animRight();
+	}, 6000);
 };
 
 module.exports = feedbackSlider;

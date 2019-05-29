@@ -1,8 +1,29 @@
 const forms = () => {
 
+	let mask = (phone) => {
+        let matrix = "+7 (___) ___ ____",
+            i = 0,
+            deletedMatrix = matrix.replace(/\D/g, ""),
+            val = phone.value.replace(/\D/g, "");
+        // Пишем наш шаблон, удаляем из него все НЕ цифры, i присваиваем 0, 
+        // удаляем все НЕ цифры из шаблона и из value
+        
+        if (deletedMatrix.length >= val.length) {
+            val = deletedMatrix;
+        }
+        // Если длина прочищенного шаблона больше либо = длине val
+        // то они чищенный шаблон равен чищенному value
+        phone.value = matrix.replace(/./g, function (a) {
+            return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+        });
+        if (event.type == "blur") {
+            if (phone.value.length == 2) {phone.value = ""};
+        } 
+    };
+
     document.body.addEventListener('input', (event) => {
 		let target = event.target;
-		if (target.getAttribute('type') === 'tel') target.value = target.value.replace(/[^0-9+]/, '');
+		if (target.getAttribute('type') === 'tel') mask(target);
 	});
 
 	let message = {
@@ -61,7 +82,6 @@ const forms = () => {
 		formSend(event.target);
     });
     let someForms = document.querySelectorAll('.form');
-	console.log(someForms);
 };
 
 module.exports = forms;
