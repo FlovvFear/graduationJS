@@ -10,7 +10,6 @@ const sizes = () => {
 					
 	sizesWrap.addEventListener('mouseover', (e) => {
 		let target = e.target;
-		console.log(target);
 		if (target && target.closest('.sizes-block')) {
 			bindPicture(target, 'none');
 			let targetClass = target.getAttribute('class');

@@ -372,6 +372,10 @@ h4 {
 .main-slider-btn img {
   width: 100%;
 }
+
+.main-slider-item img {
+  width: 100%;
+}
 .main-prev-btn {
   left: 0;
 }
@@ -844,6 +848,10 @@ h4 {
 }
 .feedback-block {
   position: relative;
+}
+
+.feedback-block img {
+  width: 100%;
 }
 .feedback-block .button-order {
   position: absolute;
@@ -1545,6 +1553,7 @@ h4 {
   }
   .feedback-heading {
     margin-top: 6rem;
+    display: none;
   }
   .feedback .slick-slide img {
     left: 0;
@@ -1684,7 +1693,14 @@ h4 {
     padding: 5rem 0;
   }
   .feedback {
-    padding: 5rem 0;
+    padding-top: 5rem;
+    padding-bottom: 0rem;
+  }
+  .feedback-text {
+    display: none;
+  }
+  .feedback-slider {
+    max-height: 370px;
   }
   .feedback .main-next-btn {
     right: -1rem;

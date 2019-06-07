@@ -1,5 +1,4 @@
 const accordion = () => {
-    const log = msg => console.log(msg);
     let accordionTabs = document.querySelectorAll('.accordion-heading'),
         accordion = document.querySelector('.often-questions'),
         accordionContents = document.querySelectorAll('.accordion-block'),
@@ -85,10 +84,9 @@ const accordion = () => {
 
     accordion.addEventListener('click', event => {
         let target = event.target;
-        log(target);
         if (target && target.classList.contains('accordion-heading') || target.tagName == 'SPAN') {
             for (let i = 0; i < accordionTabs.length; i++) {
-                if (accordionContents[i].style.dislay == 'block' && (target == accordionTabs[i] || target == accordionSpan[i])) {
+                if (accordionTabs[i].classList.contains('ui-accordion-header-active')) {
                     hideContent(0);
                     break;
                 } 

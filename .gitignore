@@ -3,3 +3,5 @@ package-lock.json
 package.json
 webpack.config.js
 .jshintrc
+.gitignore
+picture_art.zip
